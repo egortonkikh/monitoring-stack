@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 15s      # опрашивать цели каждые 15 секунд
+  evaluation_interval: 15s  # оценивать правила каждые 15 секунд
+
+scrape_configs:
+  # 1. Prometheus сам себя (для метрик о самом Prometheus)
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 2. Node Exporter — метрики Linux (CPU, RAM, disk, network)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  # 3. cAdvisor — метрики Docker-контейнеров
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
